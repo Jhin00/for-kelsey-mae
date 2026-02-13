@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Kelsey Mae ❤️</title>
+    <style>
+        body {
+            background-color: #fff0f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            /* Increased width to fit the photo better */
+            width: 90%;
+            max-width: 450px; 
+            z-index: 10;
+            position: relative;
+        }
+
+        .main-img {
+            /* Changed from 120px to 100% to fill the container */
+            width: 100%; 
+            height: auto; 
+            border-radius: 20px;
+            margin-bottom: 20px;
+            display: block;
+            border: 2px solid #ffb3c1;
+            /* Ensures the image doesn't get distorted */
+            object-fit: cover; 
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 1.6rem;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: 60px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        #noBtn {
+            background-color: #fce4ec;
+            color: #ff4d6d;
+            position: relative;
+            z-index: 11;
+        }
+
+        #message {
+            display: none;
+            margin-top: 25px;
+            color: #ff4d6d;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .falling-item {
+            position: fixed;
+            top: -100px;
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            z-index: 1;
+            animation: fall 4s linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="mainImage.png" class="main-img" id="displayImg" alt="Kelsey Mae Valentine">
+        
+        <h1 id="question">Kelsey Mae, will you be my valentine? 💖</h1>
+        
+        <div class="buttons-wrapper">
+            <button id="yesBtn" onclick="celebrate()">YES!</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+        </div>
+
+        <div id="message">See you later! ❤️❤️❤️</div>
+    </div>
+
+    <script>
+        const myImages = ["photo1.png", "photo2.png", "photo3.png", "photo4.png"];
+        let imgIndex = 0;
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            btn.style.position = 'fixed';
+            
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            document.querySelector('.buttons-wrapper').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('question').innerHTML = "U D BEST! ❤️";
+            
+            setInterval(createFallingItem, 250);
+        }
+
+        function createFallingItem() {
+            const img = document.createElement('img');
+            img.className = 'falling-item';
+            
+            img.src = myImages[imgIndex];
+            imgIndex = (imgIndex + 1) % myImages.length;
+
+            img.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 30 + 50;
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+            
+            document.body.appendChild(img);
+
+            setTimeout(() => img.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
